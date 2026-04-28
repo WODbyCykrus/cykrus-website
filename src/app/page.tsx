@@ -1,37 +1,40 @@
 import dynamic from 'next/dynamic'
 
-// Cykra3D ist 'use client' + Canvas. Hier dynamisch laden ohne SSR.
-const Cykra3D = dynamic(() => import('@/components/Cykra3D'), { ssr: false })
+// Spline-Hero (iframe-Embed) lazy laden — keine SSR, mountet nach idle.
+const SplineHero = dynamic(() => import('@/components/SplineHero'), { ssr: false })
 
 export default function HomePage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-cykra-ink">
-      {/* Layer 1 — Aurora-Glow (hinten) */}
+      {/* Aurora-Background als Fallback bis Spline geladen */}
       <div className="absolute inset-0 bg-cykra-aurora opacity-40" aria-hidden />
 
-      {/* Layer 2 — Cykra-3D-Hero (drüber) */}
+      {/* Spline-Hero füllt den Hintergrund */}
       <div className="absolute inset-0">
-        <Cykra3D className="h-full w-full" />
+        <SplineHero className="h-full w-full" />
       </div>
 
-      {/* Layer 3 — Text (oben drauf) */}
-      <section className="relative z-10 mx-auto flex min-h-screen max-w-5xl flex-col items-center justify-center px-6 text-center">
-        <p className="font-body text-xs uppercase tracking-[0.4em] text-cykra-gold/80">
-          Vault City · World of Dreams
-        </p>
-        <h1 className="mt-6 font-display text-5xl leading-tight text-cykra-body sm:text-7xl">
-          Cykrus
-        </h1>
-        <p className="mt-4 max-w-xl font-body text-base text-cykra-body/80 sm:text-lg">
-          Hier entsteht eine Stadt aus Ideen — zwischen Pflege, Code und KI.
-          Die Türme stehen, die Lichter werden gerade angezündet.
-        </p>
+      {/* Text-Overlay (rechts unten) — lässt das Modell zentral wirken */}
+      <section className="pointer-events-none relative z-10 flex min-h-screen flex-col justify-end px-6 pb-12 sm:px-12 sm:pb-16">
+        <div className="mx-auto w-full max-w-5xl text-center sm:text-left">
+          <p className="font-body text-xs uppercase tracking-[0.4em] text-cykra-gold/90 drop-shadow-[0_0_10px_rgba(0,0,0,0.6)]">
+            Vault City · World of Dreams
+          </p>
+          <h1 className="mt-3 font-display text-5xl leading-tight text-cykra-body sm:text-7xl drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]">
+            Cykrus
+          </h1>
+          <p className="mt-3 max-w-xl font-body text-sm text-cykra-body/90 sm:text-base drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+            Hier entsteht eine Stadt aus Ideen — zwischen Pflege, Code und KI.
+          </p>
 
-        <div className="mt-10 flex flex-col items-center gap-3 font-body text-sm text-cykra-body/60">
-          <span className="rounded-full border border-cykra-gold/40 px-4 py-1 text-cykra-gold backdrop-blur-sm">
-            Tag 1.5 · Cykra erwacht
-          </span>
-          <span className="backdrop-blur-sm">cykrus.at · DNS-Migration folgt</span>
+          <div className="mt-6 flex flex-col items-center gap-2 font-body text-xs text-cykra-body/70 sm:flex-row sm:items-start">
+            <span className="rounded-full border border-cykra-gold/40 bg-cykra-ink/40 px-3 py-1 text-cykra-gold backdrop-blur-sm">
+              Tag 1.5 · Cykra erwacht
+            </span>
+            <span className="rounded-full bg-cykra-ink/40 px-3 py-1 backdrop-blur-sm">
+              cykrus.at · DNS-Migration folgt
+            </span>
+          </div>
         </div>
       </section>
     </main>
