@@ -1,10 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Tag 1: Static Export für Cloudflare Pages.
+  // Sobald Worker-Integration nötig wird → @cloudflare/next-on-pages.
+  output: 'export',
+  trailingSlash: true,
+
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
 
   images: {
+    unoptimized: true,
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
   },
@@ -22,16 +28,8 @@ const nextConfig = {
     return config
   },
 
-  async headers() {
-    return [
-      {
-        source: '/:all*(woff2|avif|webp|glb|gltf|ktx2|hdr)',
-        headers: [
-          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
-        ],
-      },
-    ]
-  },
+  // headers() entfällt im Static-Export-Modus —
+  // Cache-Control kommt später über _headers oder Worker.
 }
 
 export default nextConfig
