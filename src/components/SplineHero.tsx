@@ -1,24 +1,23 @@
 'use client'
 
 /**
- * SplineHero — iframe-Embed des R4X-Bot-Modells (CC0).
+ * SplineHero — iframe-Embed des "Reactive Orb"-Modells.
  *
  * Lazy-mounted nach idle damit die Spline-Runtime nicht das LCP blockiert.
  *
- * Mouse-Tracking-Hack: pointer-events:none auf dem iframe blockiert alle
- * Maus-Events Richtung Spline → das Default-Mouse-Tracking-Verhalten
- * (Kopf kippt horizontal beim Hover) wird damit deaktiviert. Bot bleibt
- * in Idle-Pose. Eigene Animation/Cursor-Tracking ginge nur wenn das
- * File in einem Spline-Account dupliziert + via @splinetool/react-spline
- * geladen würde.
+ * Maus-Events bleiben aktiv (Orb soll auf Maus + Text reagieren).
  *
- * Quelle: https://community.spline.design/file/a38eafa0-2fa5-4630-983f-6940475adf5e
- * Embed:  https://my.spline.design/r4xbot-NUpL74jFCXzMcWQjeDqOFnj3/
+ * Embed: https://my.spline.design/reactiveorb-TbGJ7vuYaMh8lAbXAffABW2I/
+ *
+ * TODO: Farben in Spline auf Cykrus-Palette anpassen
+ *   - Königsblau #2A3A6E
+ *   - Lavendel  #A088C9
+ *   - Gold      #E8C76C
  */
 
 import { useEffect, useState } from 'react'
 
-const SPLINE_URL = 'https://my.spline.design/r4xbot-NUpL74jFCXzMcWQjeDqOFnj3/'
+const SPLINE_URL = 'https://my.spline.design/reactiveorb-TbGJ7vuYaMh8lAbXAffABW2I/'
 
 interface SplineHeroProps {
   className?: string
@@ -57,7 +56,7 @@ export default function SplineHero({ className }: SplineHeroProps) {
         width: '100%',
         height: '100%',
         display: 'block',
-        pointerEvents: 'none', // ← stoppt Mouse-Tracking-Animation
+        // pointer-events bleibt aktiv: Orb soll auf Maus reagieren
       }}
     />
   )
