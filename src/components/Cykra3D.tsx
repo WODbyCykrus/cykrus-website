@@ -23,7 +23,7 @@
 
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { ContactShadows, Environment } from '@react-three/drei'
+import { ContactShadows } from '@react-three/drei'
 import { gsap } from 'gsap'
 import * as THREE from 'three'
 
@@ -354,44 +354,40 @@ export default function Cykra3D({ onReady, className }: Cykra3DProps) {
   const [shouldRender, setShouldRender] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
 
-  // Mobile-Detection + idle-Mount
+  // Mobile-Detection + Mount (kein idle-callback mehr — Static-Export hat Cache-Probleme)
   useEffect(() => {
     if (typeof window === 'undefined') return
     setIsMobile(window.innerWidth < 768)
-
-    const mount = () => setShouldRender(true)
-    if ('requestIdleCallback' in window) {
-      const id = window.requestIdleCallback(mount, { timeout: 1500 })
-      return () => window.cancelIdleCallback(id)
-    } else {
-      const t = setTimeout(mount, 800)
-      return () => clearTimeout(t)
-    }
+    setShouldRender(true)
   }, [])
 
   if (!shouldRender) return null
 
   return (
-    <div className={className}>
+    <div className={className} style={{ width: '100%', height: '100%' }}>
       <Canvas
         camera={{ position: [0, 0, 4.5], fov: 35 }}
         dpr={[1, 2]}
         gl={{ antialias: true, alpha: true }}
         performance={{ min: 0.5 }}
+        style={{ width: '100%', height: '100%' }}
       >
-        <ambientLight intensity={0.35} />
+        <color attach="background" args={['#0E0B14']} />
+
         {/* Key: warm white von vorne-rechts */}
-        <directionalLight position={[3, 4, 2]} intensity={1.2} color="#FFF6E0" />
+        <ambientLight intensity={0.5} />
+        <directionalLight position={[3, 4, 2]} intensity={1.5} color="#FFF6E0" castShadow />
         {/* Fill: kühles Blau von vorne-links */}
-        <directionalLight position={[-2, 2, -3]} intensity={0.6} color="#5C7BB5" />
+        <directionalLight position={[-2, 2, -3]} intensity={0.7} color="#5C7BB5" />
         {/* Rim: warmes Gold von hinten — Diadem-Glow */}
-        <directionalLight position={[0, 3, -4]} intensity={0.8} color={PALETTE.gold} />
+        <directionalLight position={[0, 3, -4]} intensity={1.0} color={PALETTE.gold} />
+        {/* Bottom-Bounce: leichter Lavendel-Fill von unten für Body-Subsurface */}
+        <pointLight position={[0, -2, 1]} intensity={0.3} color={PALETTE.auroraLavender} />
 
         <Suspense fallback={null}>
-          <Environment preset="sunset" background={false} environmentIntensity={0.4} />
           <CykraMesh isMobile={isMobile} onReady={reduced ? undefined : onReady} />
           <ContactShadows
-            position={[-0, -1.0, 0]}
+            position={[0, -1.0, 0]}
             opacity={0.35}
             scale={6}
             blur={2.5}
