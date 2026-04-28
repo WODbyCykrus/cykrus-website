@@ -370,9 +370,9 @@ export default function Cykra3D({ onReady, className }: Cykra3DProps) {
         dpr={[1, 2]}
         gl={{ antialias: true, alpha: true }}
         performance={{ min: 0.5 }}
-        style={{ width: '100%', height: '100%' }}
+        style={{ width: '100%', height: '100%', display: 'block' }}
       >
-        <color attach="background" args={['#0E0B14']} />
+        {/* kein color attach=background — wir wollen den Aurora-Layer durchscheinen lassen */}
 
         {/* Key: warm white von vorne-rechts */}
         <ambientLight intensity={0.5} />
