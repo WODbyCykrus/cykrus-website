@@ -6,10 +6,7 @@ const SplineHero = dynamic(() => import('@/components/SplineHero'), { ssr: false
 export default function HomePage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-cykra-ink">
-      {/* Aurora-Background als Fallback bis Spline geladen */}
-      <div className="absolute inset-0 bg-cykra-aurora opacity-40" aria-hidden />
-
-      {/* Spline-Hero füllt den Hintergrund */}
+      {/* Spline-Hero füllt den Hintergrund. Body-bg (cykra-ink) ist der Fallback. */}
       <div className="absolute inset-0">
         <SplineHero className="h-full w-full" />
       </div>
