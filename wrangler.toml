@@ -1,0 +1,19 @@
+# wrangler.toml — Cloudflare Pages Functions config (root)
+# Worker für /api/chat liegt in workers/auto-cap/wrangler.toml
+
+name = "cykrus-website"
+compatibility_date = "2026-04-27"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".next"
+
+[vars]
+ENVIRONMENT = "production"
+
+# KV für Cost-State + Prompt-Cache
+[[kv_namespaces]]
+binding = "CYKRA_KV"
+id = "<wird-bei-wrangler-kv-namespace-create-erzeugt>"
+
+# Email-Routing (Phase 3)
+# [[email]]
+# destination_address = "info@cykrus.at"

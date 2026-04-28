@@ -1,0 +1,47 @@
+{
+  "name": "cykrus-website",
+  "version": "0.1.0",
+  "private": true,
+  "description": "cykrus.at — Vault City's public face. Next.js 14 + R3F + Cloudflare Pages.",
+  "author": "Cykruz <info@cykrus.at>",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "worker:dev": "wrangler dev workers/auto-cap/src/index.ts --local",
+    "worker:deploy": "wrangler deploy --config workers/auto-cap/wrangler.toml"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.27.0",
+    "@react-three/drei": "^9.114.0",
+    "@react-three/fiber": "^9.0.0",
+    "framer-motion": "^11.11.0",
+    "gsap": "^3.12.5",
+    "lottie-react": "^2.4.0",
+    "next": "14.2.15",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "three": "^0.169.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241011.0",
+    "@types/node": "^22.7.5",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "@types/three": "^0.169.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "14.2.15",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.13",
+    "typescript": "^5.6.2",
+    "wrangler": "^3.80.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@9.12.0"
+}

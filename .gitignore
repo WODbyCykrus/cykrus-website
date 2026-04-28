@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+.next/
+out/
+dist/
+.wrangler/
+
+# Env / secrets
+.env
+.env.local
+.env*.local
+.dev.vars
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Lighthouse
+.lighthouseci/
+
+# Spline working files (only GLB-Export wird committed)
+*.spline
+*.splinecode
+
+# 3D Source-Files (große Dateien — separat in R2)
+public/cykra.blend
+public/*.fbx
